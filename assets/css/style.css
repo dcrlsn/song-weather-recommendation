@@ -15,12 +15,52 @@ nav {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    width: 300px;
-    background-color: #A9A9A9;
+    width: 400px;
+    height: 400px;
+    border-radius: 100%;
+    background-color: #00d1b2;
     box-shadow: 3px 3px 10px #333;
-    height: 300px;
+    margin: 0 90px;
+}
+
+#current-weather h1 {
+    flex: 0 0 100%;
+    text-align: center;
+}
+
+#current-weather h2 {
+    flex: 0 0 100%;
+    text-align: center;
+    font-size: 45px;
+    font-weight: bolder;
+    padding:0;
+    transform:translateY(20px);
+}
+
+#current-weather img {
+    width:100px;
+    height:100px;
 }
 
 #current-weather:hover {
-    background-color: #00d1b2;
+    background-color: lightgrey;
+    transition: 300ms ease-in;
+    border-radius: 20px;
+}
+
+#song-recommendation {
+    font-size: 25px;
+    background-color: rgb(233, 233, 233);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#artist-bio {
+    font-size: 14px;
+}
+
+@media screen and (max-width:768px) {
+    #current-weather {
+        margin: 0 auto 20px auto;
+    }
 }

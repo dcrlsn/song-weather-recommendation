@@ -11,17 +11,17 @@
 </head>
 
 <body>
-  <nav class="navbar is-transparent">
+  <nav class="navbar is-dark">
     <div class="navbar-brand">
       <a class="navbar-item">Weather Tunes</a>
-      <div class="navbar-burger" data-target="navbarExampleTransparentExample">
+      <div class="navbar-burger" data-target="navbarExample">
         <span></span>
         <span></span>
         <span></span>
       </div>
     </div>
 
-    <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div id="navbarExample" class="navbar-menu">
       <div class="navbar-start">
         <a class="navbar-item" href="https://dcrlsn.github.io/song-weather-recommendation/">
           Home
@@ -38,10 +38,46 @@
         </div>
       </div>
   </nav>
+  <form class="field is-grouped p-4">
+    <input class="input is-rounded input is-focused column is-two-fifths" type="text"
+      placeholder="Enter Your City Here">
+    <button class="button is-primary is-rounded button is-focused ml-3">Search</button>
+  </form>
 
-  <input class="input is-rounded input is-focused column is-two-fifths" type="text" placeholder="Enter Your City Here">
-  <button class="button is-info is-rounded button is-focused">Search</button>
+  <!-- Main container -->
+  <nav class="level">
+    <!-- Left side -->
+    <div class="level-left">
+      <div class="level-item">
+        <p class="subtitle is-5">
+        </p>
+      </div>
+      <div class="level-item">
+        <div class="field has-addons">
+          <p class="control">
+            <input class="input" type="text" placeholder="Find a post">
+          </p>
+          <p class="control">
+            <button class="button">
+              Search
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
 
+    <!-- Right side -->
+    <div class="level-right">
+      <p class="level-item">Current Time</p>
+    </div>
+  </nav>
+
+  <section class="section is-medium">
+    <h1 class="title">Medium section</h1>
+    <h2 class="subtitle">
+      A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
+    </h2>
+  </section>
 
   <script src="./assets/js/script.js"></script>
 </body>

@@ -14,8 +14,7 @@ function getWeatherData() {
     })
     .then(function (data) {
       searchLocation = data.name
-      console.log(data.weather[0].main);
-      getSongRecommendation(data.weather[0].main)
+      getSongRecommendation(data)
     })
     .catch(function (error) {
       alert("Unable to connect to OpenWeatherMap");
@@ -23,37 +22,61 @@ function getWeatherData() {
   ;
 };
 // theaudiodb.com/api/v1/json/2/search.php?s=coldplay
-function getSongRecommendation(weather) {
-  console.log(weather)
-  var artist;
-  switch (weather) {
-    case "Clouds": artist = "Rick+Astley";
-      break;
-    case "Thunderstorm": artist;
-      break;
-    case "Drizzle": artist;
-      break;
-    case "Rain": artist;
-      break;
-    case "Snow": artist;
-      break;
-    case "Mist": artist;
-      break;
-    case "Ash": artist;
-      break;
-    case "Tornado": artist;
-      break;
-    case "Fog": artist;
-      break;
-    case "Clear": artist;
-
-      break;
-
-    default: 'Rick+Astley'
-      break;
+function getSongRecommendation(data) {
+  console.log(data)
+  console.log(data.weather[0].main)
+  var recommendation;
+  if (Math.floor(data.main.temp === 69)) recommendation = [{
+    artist: 'Rick+Astley',
+    spotifyID: ''
+  }];
+  else {
+    switch (data.weather[0].main) {
+      case "Clouds": recommendation = [{
+        artist: 'Rick+Astley',
+        spotifyID: ''
+      }];
+        break;
+      case "Thunderstorm": recommendation;
+        break;
+      case "Drizzle": recommendation;
+        break;
+      case "Rain": recommendation;
+        break;
+      case "Snow": recommendation;
+        break;
+      case "Mist": recommendation;
+        break;
+      case "Ash" || "Tornado": recommendation = [{
+        artist: 'Imagine+Dragons',
+        spotifyID: ''
+      }, {
+        artist: 'Nickelback',
+        spotifyID: ''
+      }];
+        break;
+      case "Clear": recommendation;
+        break;
+      case "Haze" || "Fog": recommendation = [{
+        artist: 'Snoop+Dogg',
+        spotifyID: '7hJcb9fa4alzcOq3EaNPoG'
+      }, {
+        artist: 'Willie+Nelson',
+        spotifyID: ''
+      }, {
+        artist: 'Jimi Hendrix',
+        spotifyID: ''
+      }];
+        break;
+      default: recommendation = ['Rick+Astley']
+        break;
+    }
   }
-  var apiUrl = `https://theaudiodb.com/api/v1/json/2/search.php?s=${artist}`
-  console.log(apiUrl)
+  console.log(recommendation);
+  var randArtist = recommendation[Math.floor(Math.random() * recommendation.length)].artist
+  console.log(randArtist);
+  var apiUrl = `https://theaudiodb.com/api/v1/json/2/search.php?s=${randArtist}`
+  console.log(apiUrl);
 
   fetch(apiUrl)
     .then(function (response) {
@@ -61,12 +84,25 @@ function getSongRecommendation(weather) {
       else alert(`Error: ${response.statusText}`);
     })
     .then(function (data) {
-      console.log(data)
+      displaySongRecommendation(data, randArtist.spotifyID)
     })
     .catch(function (error) {
       alert("Unable to connect to OpenWeatherMap");
     });
   ;
 };
+//<iframe src="https://open.spotify.com/embed/artist/7hJcb9fa4alzcOq3EaNPoG?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+function displaySongRecommendation(data, spotifyID) {
+  var spotifyDiv = document.createElement('div')
+  var iframe = document.createElement('iframe')
+  iframe.src = `https://open.spotify.com/embed/artist/${spotifyID}?utm_source=generator`
+  iframe.width = `100%`
+  iframe.height = `380`
+  iframe.frameBorder = `0`
+  iframe.allowFullscreen = ''
+  iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
+
+}
 
 getWeatherData()
+

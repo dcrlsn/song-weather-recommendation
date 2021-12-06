@@ -1,0 +1,8 @@
+html, * {
+    font-family: 'Roboto Mono', monospace;
+}
+
+#banner {
+ background-color: pink;
+ font-size: 10px;
+}

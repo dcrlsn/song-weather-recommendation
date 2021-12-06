@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div id="navbarExample" class="navbar-menu">
+    <div id="navbarExample" class="navbar-menu m-1 p-2">
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="https://dcrlsn.github.io/song-weather-recommendation/">
@@ -48,35 +48,27 @@
       </div>
   </nav>
 
-  <section class="hero is-small is-primary" id="banner">
+  <!-- <section class="hero is-small is-primary" id="banner">
     <div class="hero-body">
-      <!-- <p class="title">
-      </p> -->
+      <p class="title">
+      </p>
       <p class="subtitle">
         An application to generate a song based on the current weather~
       </p>
     </div>
-  </section>
+  </section> -->
 
   <!-- Main container -->
-  <nav class="level  mt-5">
+  <nav class="level m-2 p-5 columns">
     <!-- Left side -->
-    <div class="level-left">
-      <div class="level-item">
-        <p class="subtitle is-5">
-        </p>
+    <div class="field has-addons column is-half">
+      <div class="control is-expanded">
+        <input class="input" type="text" placeholder="Enter your City">
       </div>
-      <div class="level-item">
-        <div class="field has-addons">
-          <p class="control">
-            <input class="input is-rounded input is-focused" type="text" placeholder="Enter Your City Here">
-          </p>
-          <p class="control">
-            <button class="button is-primary button is-focused button is-rounded">
-              Search
-            </button>
-          </p>
-        </div>
+      <div class="control">
+        <button class="button is-primary">
+          Search
+        </button>
       </div>
     </div>
 
@@ -86,21 +78,21 @@
     </div>
   </nav>
 
+  <div class="columns is-vcentered is-centered">
+    <section class="section column is-half" id="current-weather">
+      <h1 class="title">Current Weather</h1>
+      <h2 class="subtitle">
+        Brief description of current weather will go here~
+      </h2>
+    </section>
 
-  <section class="section is-medium" id="current-weather">
-    <h1 class="title">Current Weather</h1>
-    <h2 class="subtitle">
-      Brief description of current weather will go here~
-    </h2>
-  </section>
-
-  <section class="section is-medium" id="song-recommendation">
-    <h1 class="title">Song Recommendation</h1>
-    <h2 class="subtitle">
-      An artists bio will go here~
-    </h2>
-  </section>
-
+    <section class="section column is-half" id="song-recommendation">
+      <h1 class="title">Song Recommendation</h1>
+      <h2 class="subtitle">
+        An artists bio will go here~
+      </h2>
+    </section>
+  </div>
   <footer class="footer">
     <div class="content has-text-centered">
       <p>

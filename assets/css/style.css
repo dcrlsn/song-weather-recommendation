@@ -2,7 +2,25 @@ html, * {
     font-family: 'Roboto Mono', monospace;
 }
 
-#banner {
- background-color: pink;
- font-size: 10px;
+nav {
+    font-size: 25px;
+}
+
+#current-time {
+    font-size: 20px;
+}
+
+#current-weather {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    background-color: #A9A9A9;
+    box-shadow: 3px 3px 10px #333;
+    height: 300px;
+}
+
+#current-weather:hover {
+    background-color: #00d1b2;
 }

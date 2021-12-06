@@ -1,8 +1,13 @@
 var searchTerm = "Charlotte";
 var weatherToken = `dada7bf4d9f14d708e8eabdc7768b323`;
 
+var currentWeather = document.querySelector('#current-weather')
+var currentWeatherLocation = document.querySelector('#current-weather h1')
+var currentWeatherTemp = document.querySelector('#current-weather h2')
 
-var test = document.querySelector('#test')
+var songRecommendation = document.querySelector('#song-recommendation')
+var songRecommendationName = document.querySelector('#song-recommendation h1')
+var songRecommendationBio = document.querySelector('#song-recommendation h2')
 
 
 function getWeatherData() {
@@ -14,8 +19,8 @@ function getWeatherData() {
       else alert(`Error: ${response.statusText}`);
     })
     .then(function (data) {
-      searchLocation = data.name
-      getSongRecommendation(data)
+      displayCurrentWeather(data);
+      getSongRecommendation(data);
     })
     .catch(function (error) {
       alert("Unable to connect to OpenWeatherMap");
@@ -24,8 +29,6 @@ function getWeatherData() {
 };
 // theaudiodb.com/api/v1/json/2/search.php?s=coldplay
 function getSongRecommendation(data) {
-  console.log(data)
-  console.log(data.weather[0].main)
   var recommendation;
   if (Math.floor(data.main.temp === 69)) recommendation = [{
     artist: 'Rick+Astley',
@@ -76,11 +79,8 @@ function getSongRecommendation(data) {
         break;
     }
   }
-  console.log(recommendation);
   var randArtist = recommendation[Math.floor(Math.random() * recommendation.length)]
-  console.log(randArtist);
   var apiUrl = `https://theaudiodb.com/api/v1/json/2/search.php?s=${randArtist.artist}`
-  console.log(apiUrl);
 
   fetch(apiUrl)
     .then(function (response) {
@@ -106,9 +106,12 @@ function displaySongRecommendation(data, spotifyID) {
   artist = data.artists[0]
 
   var artistBanner = document.createElement('img')
-  console.log(artist.strArtistBanner)
   artistBanner.src = `${artist.strArtistBanner}`
-  test.appendChild(artistBanner)
+  songRecommendation.prepend(artistBanner)
+  songRecommendationName.textContent = artist.strArtist;
+  if (artist.strBiographyEN) songRecommendationBio.textContent = artist.strBiographyEN;
+  else songRecommendationBio.textContent = '';
+
   var spotifyDiv = document.createElement('div')
   var iframe = document.createElement('iframe')
   iframe.src = `https://open.spotify.com/embed/artist/${spotifyID}?utm_source=generator`
@@ -117,9 +120,24 @@ function displaySongRecommendation(data, spotifyID) {
   iframe.frameBorder = `0`
   iframe.allowFullscreen = ''
   iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
-  test.appendChild(spotifyDiv)
+  songRecommendation.appendChild(spotifyDiv)
   spotifyDiv.appendChild(iframe)
 }
 
+function displayCurrentWeather(data) {
+  console.log(data)
+  currentWeatherLocation.textContent = data.name
+
+  var weatherIcon = document.createElement('img');
+  weatherIcon.src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+  currentWeather.appendChild(weatherIcon);
+  currentWeatherTemp.textContent = `${Math.floor(data.main.temp)} F`;
+}
+
+function init() {
+  var currentTime = document.querySelector('#current-time')
+  currentTime.textContent = moment().format('LLLL')
+}
 getWeatherData()
 
+init()

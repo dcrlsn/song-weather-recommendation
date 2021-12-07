@@ -33,7 +33,7 @@ function getWeatherData() {
 // theaudiodb.com/api/v1/json/2/search.php?s=coldplay
 function getSongRecommendation(data) {
   var recommendation;
-  console.log(data.weather[0].main)
+  console.log(data.weather[0].main);
   if (Math.floor(data.main.temp === 69)) recommendation = [{
     artist: 'Rick+Astley',
     spotifyID: '0gxyHStUsqpMadRV0Di1Qt'
@@ -93,12 +93,12 @@ function getSongRecommendation(data) {
       else alert(`Error: ${response.statusText}`);
     })
     .then(function (data) {
-      console.log(data)
-      displaySongRecommendation(data, randArtist.spotifyID)
+      console.log(data);
+      displaySongRecommendation(data, randArtist.spotifyID);
     })
     .catch(function (error) {
       alert("Unable to connect to OpenWeatherMap");
-      console.log(error)
+      console.log(error);
     });
   ;
 };
@@ -109,29 +109,31 @@ function getSongRecommendation(data) {
 //<iframe src="https://open.spotify.com/embed/artist/7hJcb9fa4alzcOq3EaNPoG?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 function displaySongRecommendation(data, spotifyID) {
   artist = data.artists[0]
-
-  var artistBanner = document.createElement('img')
-  artistBanner.src = `${artist.strArtistBanner}`
-  songRecommendation.prepend(artistBanner)
+  var artistBannerDiv = document.createElement('div');
+  artistBannerDiv.classList = 'has-text-centered';
+  songRecommendation.prepend(artistBannerDiv);
+  var artistBanner = document.createElement('img');
+  artistBanner.src = `${artist.strArtistBanner}`;
+  artistBannerDiv.appendChild(artistBanner);
   songRecommendationName.textContent = artist.strArtist;
   if (artist.strBiographyEN) songRecommendationBio.textContent = artist.strBiographyEN;
   else songRecommendationBio.textContent = '';
 
   var spotifyDiv = document.createElement('div')
   var iframe = document.createElement('iframe')
-  iframe.src = `https://open.spotify.com/embed/artist/${spotifyID}?utm_source=generator`
-  iframe.width = `100%`
-  iframe.height = `380`
-  iframe.frameBorder = `0`
-  iframe.allowFullscreen = ''
-  iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture'
-  songRecommendation.appendChild(spotifyDiv)
-  spotifyDiv.appendChild(iframe)
+  iframe.src = `https://open.spotify.com/embed/artist/${spotifyID}?utm_source=generator`;
+  iframe.width = `100%`;
+  iframe.height = `380`;
+  iframe.frameBorder = `0`;
+  iframe.allowFullscreen = '';
+  iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  songRecommendation.appendChild(spotifyDiv);
+  spotifyDiv.appendChild(iframe);
 }
 
 function displayCurrentWeather(data) {
-  console.log(data)
-  currentWeatherLocation.textContent = data.name
+  console.log(data);
+  currentWeatherLocation.textContent = data.name;
 
   var weatherIcon = document.createElement('img');
   weatherIcon.src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
@@ -145,7 +147,7 @@ function init() {
   if (searchTerm) getWeatherData();
 }
 
-init()
+init();
 
 
 searchFormElement.addEventListener('submit',

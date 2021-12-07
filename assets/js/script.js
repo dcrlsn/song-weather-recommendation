@@ -1,6 +1,9 @@
+//query params
 var params = new URLSearchParams(document.location.search);
 var searchTerm = params.get('q');
+//openweathertoken
 var weatherToken = `dada7bf4d9f14d708e8eabdc7768b323`;
+//queryselectors
 var searchFormElement = document.querySelector('form')
 var searchInput = document.querySelector('#search-field')
 
@@ -12,7 +15,7 @@ var songRecommendation = document.querySelector('#song-recommendation')
 var songRecommendationName = document.querySelector('#song-recommendation h1')
 var songRecommendationBio = document.querySelector('#song-recommendation h2')
 
-
+//fetch for weather
 function getWeatherData() {
   var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${weatherToken}&units=imperial`
 
@@ -30,10 +33,10 @@ function getWeatherData() {
     });
   ;
 };
-
+//fetch and seed for song
 function getSongRecommendation(data) {
   var recommendation;
-  console.log(data.weather[0].main);
+  //conditional checks for seeds
   if (Math.floor(data.main.temp === 69)) recommendation = [{
     artist: '112884',
     spotifyID: '0gxyHStUsqpMadRV0Di1Qt'
@@ -139,26 +142,25 @@ function getSongRecommendation(data) {
         break;
     }
   }
+  //randomizes seed artists
   var randArtist = recommendation[Math.floor(Math.random() * recommendation.length)]
   var apiUrl = `https://theaudiodb.com/api/v1/json/2/artist.php?i=${randArtist.artist}`
-  console.log(apiUrl)
-
+  //audiodb fetch
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) return response.json();
       else alert(`Error: ${response.statusText}`);
     })
     .then(function (data) {
-      console.log(data);
       displaySongRecommendation(data, randArtist.spotifyID);
     })
     .catch(function (error) {
-      alert("Unable to connect to OpenWeatherMap");
-      console.log(error);
+      alert("Unable to connect to theaudiodb");
     });
   ;
 };
 
+//displays audiodb info and spotify iframe
 function displaySongRecommendation(data, spotifyID) {
   artist = data.artists[0]
   currentWeather.style.display = 'flex';
@@ -187,9 +189,8 @@ function displaySongRecommendation(data, spotifyID) {
   songRecommendation.appendChild(spotifyDiv);
   spotifyDiv.appendChild(iframe);
 }
-
+//displays current weather data
 function displayCurrentWeather(data) {
-  console.log(data);
   currentWeatherLocation.textContent = data.name;
 
   var weatherIcon = document.createElement('img');
@@ -197,7 +198,7 @@ function displayCurrentWeather(data) {
   currentWeather.appendChild(weatherIcon);
   currentWeatherTemp.textContent = `${Math.floor(data.main.temp)} F`;
 }
-
+//displays time, grabs search query from URL
 function init() {
   var currentTime = document.querySelector('#current-time')
   currentTime.textContent = moment().format('LLLL')
@@ -206,7 +207,7 @@ function init() {
 
 init();
 
-
+//event listener for form
 searchFormElement.addEventListener('submit',
   function (event) {
     event.preventDefault();

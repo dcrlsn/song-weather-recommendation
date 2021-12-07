@@ -33,6 +33,7 @@ function getWeatherData() {
 // theaudiodb.com/api/v1/json/2/search.php?s=coldplay
 function getSongRecommendation(data) {
   var recommendation;
+  console.log(data.weather[0].main)
   if (Math.floor(data.main.temp === 69)) recommendation = [{
     artist: 'Rick+Astley',
     spotifyID: '0gxyHStUsqpMadRV0Di1Qt'
@@ -55,8 +56,6 @@ function getSongRecommendation(data) {
         break;
       case "Snow": recommendation;
         break;
-      case "Mist": recommendation;
-        break;
       case "Ash" || "Tornado": recommendation = [{
         artist: 'Imagine+Dragons',
         spotifyID: '53XhwfbYqKCa1cC15pYq2q'
@@ -67,7 +66,7 @@ function getSongRecommendation(data) {
         break;
       case "Clear": recommendation;
         break;
-      case "Haze" || "Fog": recommendation = [{
+      case "Mist" || "Haze" || "Fog": recommendation = [{
         artist: 'Snoop+Dogg',
         spotifyID: '7hJcb9fa4alzcOq3EaNPoG'
       }, {

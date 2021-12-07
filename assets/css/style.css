@@ -60,7 +60,8 @@ nav {
     font-size: 14px;
 }
 
-@media screen and (max-width:768px) {
+
+@media screen and (max-width:1280px) {
     #current-weather {
         margin: 0 auto 20px auto;
         height: 300px;
@@ -73,6 +74,13 @@ nav {
         font-size: 14px;
     }
     #song-recommendation {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width:768px) {
+    #song-recommendation {
         width: 100%;
+        margin: 0;
     }
 }

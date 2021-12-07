@@ -161,8 +161,8 @@ function getSongRecommendation(data) {
 
 function displaySongRecommendation(data, spotifyID) {
   artist = data.artists[0]
-  currentWeather.style.display = flex;
-  songRecommendation.style.display = block;
+  currentWeather.style.display = 'flex';
+  songRecommendation.style.display = 'block';
   if (artist.strArtistBanner) {
     var artistBannerDiv = document.createElement('div');
     artistBannerDiv.classList = 'has-text-centered';

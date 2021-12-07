@@ -34,13 +34,13 @@ nav {
     text-align: center;
     font-size: 45px;
     font-weight: bolder;
-    padding:0;
-    transform:translateY(20px);
+    padding: 0;
+    transform: translateY(20px);
 }
 
 #current-weather img {
-    width:100px;
-    height:100px;
+    width: 100px;
+    height: 100px;
 }
 
 #current-weather:hover {

@@ -61,6 +61,10 @@ nav {
     font-size: 14px;
 }
 
+footer a {
+    color: #00d1b2;
+}
+
 
 @media screen and (max-width:1280px) {
     #current-weather {

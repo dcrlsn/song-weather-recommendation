@@ -1,9 +1,9 @@
 html, * {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Roboto Mono', monospace !important;
 }
 
 nav {
-    font-size: 30px;
+    font-size: 27px;
 }
 
 #current-time {
@@ -27,15 +27,17 @@ nav {
 #current-weather h1 {
     flex: 0 0 100%;
     text-align: center;
+    justify-content: center;
 }
 
 #current-weather h2 {
     flex: 0 0 100%;
     text-align: center;
+    justify-content: center;
     font-size: 45px;
     font-weight: bolder;
-    padding:0;
-    transform:translateY(20px);
+    padding: 0;
+    /* transform:translateY(20px); */
 }
 
 #current-weather img {
@@ -45,8 +47,8 @@ nav {
 
 #current-weather:hover {
     background-color: lightgrey;
-    transition: 300ms ease-in;
-    border-radius: 20px;
+    transition: 200ms ease-in-out;
+    border-radius: 50%;
 }
 
 #song-recommendation {
@@ -67,14 +69,14 @@ nav {
         height: 300px;
         width: 300px;
     }
+
     footer {
         font-size: 10px;
     }
-    #current-time {
-        font-size: 14px;
-    }
+
     #song-recommendation {
         width: 50%;
+        margin: 0 auto 20px auto;
     }
 }
 
@@ -82,5 +84,8 @@ nav {
     #song-recommendation {
         width: 100%;
         margin: 0;
+    }
+    #current-time {
+        font-size: 14px;
     }
 }

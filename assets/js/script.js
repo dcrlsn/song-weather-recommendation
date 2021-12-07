@@ -156,6 +156,7 @@ function getSongRecommendation(data) {
     })
     .catch(function (error) {
       alert("Unable to connect to theaudiodb");
+      songRecommendationName.textContent = error
     });
   ;
 };
@@ -164,7 +165,6 @@ function getSongRecommendation(data) {
 function displaySongRecommendation(data, spotifyID) {
   artist = data.artists[0]
   currentWeather.style.display = 'flex';
-  songRecommendation.style.display = 'block';
   if (artist.strArtistBanner) {
     var artistBannerDiv = document.createElement('div');
     artistBannerDiv.classList = 'has-text-centered';

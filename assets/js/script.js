@@ -1,5 +1,8 @@
-var searchTerm = "Charlotte";
+var params = new URLSearchParams(document.location.search);
+var searchTerm = params.get('q');
 var weatherToken = `dada7bf4d9f14d708e8eabdc7768b323`;
+var searchFormElement = document.querySelector('form')
+var searchInput = document.querySelector('#search-field')
 
 var currentWeather = document.querySelector('#current-weather')
 var currentWeatherLocation = document.querySelector('#current-weather h1')
@@ -45,7 +48,10 @@ function getSongRecommendation(data) {
         break;
       case "Drizzle": recommendation;
         break;
-      case "Rain": recommendation;
+      case "Rain": recommendation = [{
+        artist: 'Rick+Astley',
+        spotifyID: '0gxyHStUsqpMadRV0Di1Qt'
+      }];
         break;
       case "Snow": recommendation;
         break;
@@ -137,7 +143,15 @@ function displayCurrentWeather(data) {
 function init() {
   var currentTime = document.querySelector('#current-time')
   currentTime.textContent = moment().format('LLLL')
+  if (searchTerm) getWeatherData();
 }
-getWeatherData()
 
 init()
+
+
+searchFormElement.addEventListener('submit',
+  function (event) {
+    event.preventDefault();
+    var search = searchInput.value.replace(/\s/g, "+");
+    if (search) location.replace(`index.html?q=${search}`);
+  })

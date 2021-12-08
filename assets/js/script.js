@@ -28,7 +28,10 @@ function getWeatherData() {
 
   fetch(apiUrl)
     .then(function (response) {
-      if (response.ok) return response.json();
+      if (response.ok) {
+        store(searchTerm)
+        return response.json();
+      }
       else {
         errorModal.classList.add("is-active")
         errorContent.textContent = `Error: ${response.statusText}`

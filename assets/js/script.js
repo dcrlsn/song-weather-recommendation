@@ -37,15 +37,13 @@ function getWeatherData() {
 function getSongRecommendation(data) {
   var recommendation;
   //conditional checks for seeds
-  if (Math.floor(data.main.temp === 69)) recommendation = [{
-    artist: '112884',
-    spotifyID: '0gxyHStUsqpMadRV0Di1Qt'
-  }];
-  else if (Math.floor(data.weather[0].temp === 42)) recommendation = [{
-    artist: 'Noisestorm',
-    spotifyID: '2BuSNpxpMGJGiAAWJYJT2t'
-  }]
-  else {
+  console.log(Math.floor(data.main.temp))
+  if (Math.floor(data.main.temp) === 69) {
+    recommendation = [{
+      artist: '112884',
+      spotifyID: '0gxyHStUsqpMadRV0Di1Qt'
+    }];
+  } else {
     switch (data.weather[0].main) {
       case "Clouds": recommendation = [{
         artist: '134694',
@@ -136,7 +134,7 @@ function getSongRecommendation(data) {
       }];
         break;
       default: recommendation = [{
-        artist: 'Rick+Astley',
+        artist: '112884',
         spotifyID: '0gxyHStUsqpMadRV0Di1Qt'
       }]
         break;

@@ -15,6 +15,10 @@ var songRecommendation = document.querySelector('#song-recommendation')
 var songRecommendationName = document.querySelector('#song-recommendation h1')
 var songRecommendationBio = document.querySelector('#song-recommendation h2')
 
+var errorModal = document.querySelector('#error-modal')
+var errorContent = document.querySelector('#error-content')
+var errorButton = document.querySelector('#error-button')
+
 //fetch for weather
 function getWeatherData() {
   var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${weatherToken}&units=imperial`
@@ -22,14 +26,18 @@ function getWeatherData() {
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) return response.json();
-      else alert(`Error: ${response.statusText}`);
+      else {
+        errorModal.classList.add("is-active")
+        errorContent.textContent = `Error: ${response.statusText}`
+      }
     })
     .then(function (data) {
       displayCurrentWeather(data);
       getSongRecommendation(data);
     })
     .catch(function (error) {
-      alert("Unable to connect to OpenWeatherMap");
+      errorModal.classList.add("is-active")
+      errorContent.textContent = error
     });
   ;
 };
@@ -147,17 +155,22 @@ function getSongRecommendation(data) {
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) return response.json();
-      else alert(`Error: ${response.statusText}`);
+      else {
+        errorModal.classList.add("is-active")
+        errorContent.textContent = `Error: ${response.statusText}`
+      }
     })
     .then(function (data) {
       displaySongRecommendation(data, randArtist.spotifyID);
     })
     .catch(function (error) {
-      alert("Unable to connect to theaudiodb");
-      songRecommendationName.textContent = error
+      errorModal.classList.add("is-active")
+      errorContent.textContent = error
     });
   ;
 };
+
+
 
 //displays audiodb info and spotify iframe
 function displaySongRecommendation(data, spotifyID) {
@@ -212,3 +225,9 @@ searchFormElement.addEventListener('submit',
     var search = searchInput.value.replace(/\s/g, "+");
     if (search) location.replace(`index.html?q=${search}`);
   })
+
+errorButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  errorModal.classList.remove('is-active');
+  console.log(event)
+})

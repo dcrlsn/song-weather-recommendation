@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <title>Weather Tunes</title>
+
 </head>
 
 <body class="has-background-white-ter">
@@ -25,7 +26,19 @@
         <span></span>
       </div>
     </div>
-
+    <div class="modal is-active" id="error-modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <section class="section column is-half mr-5 has-background-black">
+          <h1 class="title" id="error-title">
+            Sorry there was an Error
+          </h1>
+          <h2 class="subtitle" id="error-content">
+          </h2>
+        </section>
+      </div>
+      <button class="modal-close is-large" aria-label="close" id="error-button"></button>
+    </div>
     <!-- <div id="navbarExample" class="navbar-menu">
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
@@ -60,6 +73,7 @@
         </button>
       </div>
     </form>
+
 
     <!-- Right side -->
     <div class="level-right has-text-right" id="current-time">

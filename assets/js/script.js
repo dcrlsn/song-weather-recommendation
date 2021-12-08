@@ -19,6 +19,9 @@ var errorModal = document.querySelector('#error-modal')
 var errorContent = document.querySelector('#error-content')
 var errorButton = document.querySelector('#error-button')
 
+var prevSearchElement = document.querySelector('#prev-search');
+var prevSearchElementBtn = document.querySelectorAll('#prev-search button');
+
 //fetch for weather
 function getWeatherData() {
   var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${weatherToken}&units=imperial`
@@ -209,11 +212,40 @@ function displayCurrentWeather(data) {
   currentWeather.appendChild(weatherIcon);
   currentWeatherTemp.textContent = `${Math.floor(data.main.temp)} F`;
 }
+
+function store(str) {
+  var prevSearch = JSON.parse(localStorage.getItem("prevSearch")) || [];
+  if (!prevSearch.includes(str) && !null) {
+    prevSearch.unshift(str);
+    if (prevSearch.length > 5) {
+      prevSearch.length = 5;
+    }
+  }
+  localStorage.setItem('prevSearch', JSON.stringify(prevSearch));
+}
+function renderPrevSearch(prevSearch) {
+  prevSearchElement.style.display = 'block';
+  for (i = 0; i < prevSearch.length; i++) {
+    var prevSearchBtn = document.createElement('button');
+    prevSearchBtn.textContent = prevSearch[i];
+    prevSearchBtn.classList = "button is-primary"
+    prevSearchBtn.setAttribute('data-search', prevSearch[i].replace(/\s/g, "+"));
+    prevSearchBtn.setAttribute('type', 'button');
+    prevSearchBtn.addEventListener('click', function () {
+      location.replace(`index.html?q=${this.dataset.search}`);
+    })
+    prevSearchElement.appendChild(prevSearchBtn);
+  }
+}
 //displays time, grabs search query from URL
 function init() {
-  var currentTime = document.querySelector('#current-time')
-  currentTime.textContent = moment().format('LLLL')
-  if (searchTerm) getWeatherData();
+  console.log(prevSearchElement)
+  var currentTime = document.querySelector('#current-time');
+  var prevSearch = JSON.parse(localStorage.getItem("prevSearch")) || [];
+  currentTime.textContent = moment().format('LLLL');
+  if (searchTerm) {
+    getWeatherData();
+  } else renderPrevSearch(prevSearch)
 }
 
 init();
@@ -231,3 +263,4 @@ errorButton.addEventListener('click', function (event) {
   errorModal.classList.remove('is-active');
   console.log(event)
 })
+

@@ -11,6 +11,10 @@ nav {
     padding: 12px;
 }
 
+#prev-search {
+    display: none;
+}
+
 #current-weather {
     display: none;
     flex-wrap: wrap;

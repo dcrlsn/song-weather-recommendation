@@ -13,7 +13,8 @@ var currentWeatherTemp = document.querySelector('#current-weather h2')
 
 var songRecommendation = document.querySelector('#song-recommendation')
 var songRecommendationName = document.querySelector('#song-recommendation h1')
-var songRecommendationBio = document.querySelector('#song-recommendation h2')
+var searchInfo = document.querySelector('#song-recommendation h2')
+var songRecommendationBio = document.querySelector('#artist-bio')
 
 var errorModal = document.querySelector('#error-modal')
 var errorContent = document.querySelector('#error-content')
@@ -21,6 +22,9 @@ var errorButton = document.querySelector('#error-button')
 
 var prevSearchElement = document.querySelector('#prev-search');
 var prevSearchElementBtn = document.querySelectorAll('#prev-search button');
+
+var artistBioCard = document.querySelector('#artist-bio-card')
+var artistBioDiv = document.querySelector('#artist-bio-div')
 
 //fetch for weather
 function getWeatherData() {
@@ -182,6 +186,8 @@ function getSongRecommendation(data) {
 function displaySongRecommendation(data, spotifyID) {
   artist = data.artists[0]
   currentWeather.style.display = 'flex';
+  searchInfo.style.display = 'none';
+  artistBioCard.classList.remove('is-hidden');
   if (artist.strArtistBanner) {
     var artistBannerDiv = document.createElement('div');
     artistBannerDiv.classList = 'has-text-centered';
@@ -267,3 +273,8 @@ errorButton.addEventListener('click', function (event) {
   console.log(event)
 })
 
+artistBioCard.addEventListener('click', function (event) {
+  event.preventDefault();
+  console.log(artistBioDiv)
+  artistBioDiv.classList.toggle('is-hidden');
+})

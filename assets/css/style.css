@@ -25,6 +25,16 @@ main {
     justify-content: space-between;
 }
 
+#artist-bio-card {
+    background-color: lightgrey;
+    box-shadow: 5px 5px 10px #33333355;
+    cursor: pointer;
+}
+
+#artist-bio-div {
+    background-color: lightgrey;
+}
+
 #content {
     position: relative;
 }
@@ -34,7 +44,6 @@ main {
 }
 
 #current-weather {
-    position: sticky;
     display: none;
     flex-wrap: wrap;
     align-items: center;
@@ -45,7 +54,6 @@ main {
     background-color: #00d1b2;
     box-shadow: 3px 3px 10px #333;
     margin: 0 90px;
-    top: 50px
 }
 
 #current-weather h1 {
@@ -114,5 +122,12 @@ footer a {
 
     #current-time {
         font-size: 14px;
+    }
+}
+
+@media screen and (min-width:769px) {
+    #current-weather {
+        position: sticky;
+        top: 50px;
     }
 }

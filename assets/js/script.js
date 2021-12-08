@@ -55,7 +55,6 @@ function getWeatherData() {
 function getSongRecommendation(data) {
   var recommendation;
   //conditional checks for seeds
-  console.log(Math.floor(data.main.temp))
   if (Math.floor(data.main.temp) === 69) {
     recommendation = [{
       artist: '112884',
@@ -248,7 +247,6 @@ function renderPrevSearch(prevSearch) {
 }
 //displays time, grabs search query from URL
 function init() {
-  console.log(prevSearchElement)
   var currentTime = document.querySelector('#current-time');
   var prevSearch = JSON.parse(localStorage.getItem("prevSearch")) || [];
   currentTime.textContent = moment().format('LLLL');
@@ -270,11 +268,9 @@ searchFormElement.addEventListener('submit',
 errorButton.addEventListener('click', function (event) {
   event.preventDefault();
   errorModal.classList.remove('is-active');
-  console.log(event)
 })
 
 artistBioCard.addEventListener('click', function (event) {
   event.preventDefault();
-  console.log(artistBioDiv)
   artistBioDiv.classList.toggle('is-hidden');
 })

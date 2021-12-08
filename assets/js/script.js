@@ -13,7 +13,8 @@ var currentWeatherTemp = document.querySelector('#current-weather h2')
 
 var songRecommendation = document.querySelector('#song-recommendation')
 var songRecommendationName = document.querySelector('#song-recommendation h1')
-var songRecommendationBio = document.querySelector('#song-recommendation h2')
+var searchInfo = document.querySelector('#song-recommendation h2')
+var songRecommendationBio = document.querySelector('#artist-bio')
 
 var errorModal = document.querySelector('#error-modal')
 var errorContent = document.querySelector('#error-content')
@@ -21,6 +22,9 @@ var errorButton = document.querySelector('#error-button')
 
 var prevSearchElement = document.querySelector('#prev-search');
 var prevSearchElementBtn = document.querySelectorAll('#prev-search button');
+
+var artistBioCard = document.querySelector('#artist-bio-card')
+var artistBioDiv = document.querySelector('#artist-bio-div')
 
 //fetch for weather
 function getWeatherData() {
@@ -51,7 +55,6 @@ function getWeatherData() {
 function getSongRecommendation(data) {
   var recommendation;
   //conditional checks for seeds
-  console.log(Math.floor(data.main.temp))
   if (Math.floor(data.main.temp) === 69) {
     recommendation = [{
       artist: '112884',
@@ -182,6 +185,8 @@ function getSongRecommendation(data) {
 function displaySongRecommendation(data, spotifyID) {
   artist = data.artists[0]
   currentWeather.style.display = 'flex';
+  searchInfo.style.display = 'none';
+  artistBioCard.classList.remove('is-hidden');
   if (artist.strArtistBanner) {
     var artistBannerDiv = document.createElement('div');
     artistBannerDiv.classList = 'has-text-centered';
@@ -242,7 +247,6 @@ function renderPrevSearch(prevSearch) {
 }
 //displays time, grabs search query from URL
 function init() {
-  console.log(prevSearchElement)
   var currentTime = document.querySelector('#current-time');
   var prevSearch = JSON.parse(localStorage.getItem("prevSearch")) || [];
   currentTime.textContent = moment().format('LLLL');
@@ -264,6 +268,9 @@ searchFormElement.addEventListener('submit',
 errorButton.addEventListener('click', function (event) {
   event.preventDefault();
   errorModal.classList.remove('is-active');
-  console.log(event)
 })
 
+artistBioCard.addEventListener('click', function (event) {
+  event.preventDefault();
+  artistBioDiv.classList.toggle('is-hidden');
+})

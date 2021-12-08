@@ -228,7 +228,7 @@ function renderPrevSearch(prevSearch) {
   for (i = 0; i < prevSearch.length; i++) {
     var prevSearchBtn = document.createElement('button');
     prevSearchBtn.textContent = prevSearch[i];
-    prevSearchBtn.classList = "button is-primary"
+    prevSearchBtn.classList = "button is-primary m-1"
     prevSearchBtn.setAttribute('data-search', prevSearch[i].replace(/\s/g, "+"));
     prevSearchBtn.setAttribute('type', 'button');
     prevSearchBtn.addEventListener('click', function () {

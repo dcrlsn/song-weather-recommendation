@@ -6,6 +6,13 @@ nav {
     font-size: 27px;
 }
 
+body {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 #current-time {
     font-size: 20px;
     padding: 12px;

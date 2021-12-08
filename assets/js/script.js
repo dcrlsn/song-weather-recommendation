@@ -15,21 +15,35 @@ var songRecommendation = document.querySelector('#song-recommendation')
 var songRecommendationName = document.querySelector('#song-recommendation h1')
 var songRecommendationBio = document.querySelector('#song-recommendation h2')
 
+var errorModal = document.querySelector('#error-modal')
+var errorContent = document.querySelector('#error-content')
+var errorButton = document.querySelector('#error-button')
+
+var prevSearchElement = document.querySelector('#prev-search');
+var prevSearchElementBtn = document.querySelectorAll('#prev-search button');
+
 //fetch for weather
 function getWeatherData() {
   var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${weatherToken}&units=imperial`
 
   fetch(apiUrl)
     .then(function (response) {
-      if (response.ok) return response.json();
-      else alert(`Error: ${response.statusText}`);
+      if (response.ok) {
+        store(searchTerm)
+        return response.json();
+      }
+      else {
+        errorModal.classList.add("is-active")
+        errorContent.textContent = `Error: ${response.statusText}`
+      }
     })
     .then(function (data) {
       displayCurrentWeather(data);
       getSongRecommendation(data);
     })
     .catch(function (error) {
-      alert("Unable to connect to OpenWeatherMap");
+      errorModal.classList.add("is-active")
+      errorContent.textContent = error
     });
   ;
 };
@@ -147,17 +161,22 @@ function getSongRecommendation(data) {
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) return response.json();
-      else alert(`Error: ${response.statusText}`);
+      else {
+        errorModal.classList.add("is-active")
+        errorContent.textContent = `Error: ${response.statusText}`
+      }
     })
     .then(function (data) {
       displaySongRecommendation(data, randArtist.spotifyID);
     })
     .catch(function (error) {
-      alert("Unable to connect to theaudiodb");
-      songRecommendationName.textContent = error
+      errorModal.classList.add("is-active")
+      errorContent.textContent = error
     });
   ;
 };
+
+
 
 //displays audiodb info and spotify iframe
 function displaySongRecommendation(data, spotifyID) {
@@ -196,11 +215,40 @@ function displayCurrentWeather(data) {
   currentWeather.appendChild(weatherIcon);
   currentWeatherTemp.textContent = `${Math.floor(data.main.temp)} F`;
 }
+
+function store(str) {
+  var prevSearch = JSON.parse(localStorage.getItem("prevSearch")) || [];
+  if (!prevSearch.includes(str) && !null) {
+    prevSearch.unshift(str);
+    if (prevSearch.length > 5) {
+      prevSearch.length = 5;
+    }
+  }
+  localStorage.setItem('prevSearch', JSON.stringify(prevSearch));
+}
+function renderPrevSearch(prevSearch) {
+  prevSearchElement.style.display = 'block';
+  for (i = 0; i < prevSearch.length; i++) {
+    var prevSearchBtn = document.createElement('button');
+    prevSearchBtn.textContent = prevSearch[i];
+    prevSearchBtn.classList = "button is-primary m-1"
+    prevSearchBtn.setAttribute('data-search', prevSearch[i].replace(/\s/g, "+"));
+    prevSearchBtn.setAttribute('type', 'button');
+    prevSearchBtn.addEventListener('click', function () {
+      location.replace(`index.html?q=${this.dataset.search}`);
+    })
+    prevSearchElement.appendChild(prevSearchBtn);
+  }
+}
 //displays time, grabs search query from URL
 function init() {
-  var currentTime = document.querySelector('#current-time')
-  currentTime.textContent = moment().format('LLLL')
-  if (searchTerm) getWeatherData();
+  console.log(prevSearchElement)
+  var currentTime = document.querySelector('#current-time');
+  var prevSearch = JSON.parse(localStorage.getItem("prevSearch")) || [];
+  currentTime.textContent = moment().format('LLLL');
+  if (searchTerm) {
+    getWeatherData();
+  } else renderPrevSearch(prevSearch)
 }
 
 init();
@@ -212,3 +260,10 @@ searchFormElement.addEventListener('submit',
     var search = searchInput.value.replace(/\s/g, "+");
     if (search) location.replace(`index.html?q=${search}`);
   })
+
+errorButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  errorModal.classList.remove('is-active');
+  console.log(event)
+})
+
